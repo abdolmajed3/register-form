@@ -1,7 +1,11 @@
+import { AccountForm } from "./accountForm"
+import AddressForm from "./addressForm"
 import { useMultistepForm } from "./useMultistepForm"
+import { UserForm } from "./userForm"
 
 function App() {
-  const { steps, currentStepIndex, step, isFirstStep, back, next } = useMultistepForm([<div>one</div>, <div>two</div>])
+  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
+  useMultistepForm([<UserForm />, <AddressForm />, <AccountForm />])
   return (
     <div className="App" style={{
       position: "relative",
@@ -18,8 +22,14 @@ function App() {
         </div>
         {step}
         <div style={{ marginTop: "1rem", display: "flex", gap: ".5rem", justifyContent: "flex-end" }}>
-          {!isFirstStep && <button onClick={back}>Back</button>}
-          <button onClick={next}>Next</button>
+          {!isFirstStep && (
+            <button type="button" onClick={back}>
+              Back
+            </button>
+          )}
+          <button type="button" onClick={next}>
+            {isLastStep ? "finish" : "Next" }
+            </button>
         </div>
       </form>
     </div>
